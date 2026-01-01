@@ -30,7 +30,12 @@ public class FuelEntry {
     
     @Override
     public String toString() {
-        return String.format("Fuel Entry #%d: %.1fL @ %dkm (Cost: %.2f)", 
-                id, liters, odometer, price);
+        return String.format(
+            "ID: %d%n" +
+            "Liters: %.1f%n" +
+            "Price: %.2f%n" +
+            "Odometer: %d km",
+            id, liters, price, odometer
+        );
     }
 }
