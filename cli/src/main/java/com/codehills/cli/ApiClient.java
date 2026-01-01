@@ -7,6 +7,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
 import java.net.URI;
+import java.util.Map;
 import java.net.http.HttpClient;
 import java.net.http.HttpRequest;
 import java.net.http.HttpResponse;
@@ -39,12 +40,13 @@ public class ApiClient {
     
 
     public Car createCar(String brand, String model, int year) throws Exception {
-        
-        // Build JSON request body
-        String jsonBody = String.format(
-            "{\"brand\":\"%s\",\"model\":\"%s\",\"year\":%d}",
-            brand, model, year
-        );
+
+        // Build JSON request body using Gson to prevent injection
+        String jsonBody = gson.toJson(Map.of(
+            "brand", brand,
+            "model", model,
+            "year", year
+        ));
         
         // Build HTTP request
         HttpRequest request = HttpRequest.newBuilder()
@@ -71,14 +73,15 @@ public class ApiClient {
     
     // ADD FUEL ENTRY TO A CAR
 
-    public FuelEntry addFuel(long carId, double liters, double price, int odometer) 
+    public FuelEntry addFuel(long carId, double liters, double price, int odometer)
             throws Exception {
-        
-        // Build JSON request body
-        String jsonBody = String.format(
-            "{\"liters\":%.1f,\"price\":%.2f,\"odometer\":%d}",
-            liters, price, odometer
-        );
+
+        // Build JSON request body using Gson to prevent injection
+        String jsonBody = gson.toJson(Map.of(
+            "liters", liters,
+            "price", price,
+            "odometer", odometer
+        ));
         
         // Build HTTP request
         HttpRequest request = HttpRequest.newBuilder()

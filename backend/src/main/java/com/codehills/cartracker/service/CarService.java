@@ -8,6 +8,7 @@ import com.codehills.cartracker.model.FuelStats;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -111,38 +112,35 @@ public class CarService {
     }
 
     private double calculateAverageConsumption(List<FuelEntry> entries) {
-        // Need at least 2 entries to calculate distance
+        // Need at least 2 entries to calculate consumption
         if (entries.size() < 2) {
             return 0.0;
         }
-        
-        // Find minimum odometer (start point)
-        int minOdometer = entries.stream()
-                .mapToInt(FuelEntry::getOdometer)
-                .min()
-                .orElse(0);
-        
-        // Find maximum odometer (end point)
-        int maxOdometer = entries.stream()
-                .mapToInt(FuelEntry::getOdometer)
-                .max()
-                .orElse(0);
-        
-        // Calculate distance
-        int distance = maxOdometer - minOdometer;
-        
+
+        // Sort entries by odometer to ensure correct order
+        List<FuelEntry> sorted = entries.stream()
+                .sorted(Comparator.comparingInt(FuelEntry::getOdometer))
+                .toList();
+
+        // Calculate distance from first to last fill-up
+        int firstOdometer = sorted.get(0).getOdometer();
+        int lastOdometer = sorted.get(sorted.size() - 1).getOdometer();
+        int distance = lastOdometer - firstOdometer;
+
         // Avoid division by zero
         if (distance <= 0) {
             return 0.0;
         }
-        
-        // Calculate total fuel
-        double totalFuel = entries.stream()
+
+        // Sum fuel from all entries EXCEPT the first one
+        // (first fill-up's fuel was consumed before our tracking started)
+        double fuelConsumed = sorted.stream()
+                .skip(1)
                 .mapToDouble(FuelEntry::getLiters)
                 .sum();
-        
+
         // Calculate L/100km, round to 1 decimal place
-        double average = (totalFuel / distance) * 100;
+        double average = (fuelConsumed / distance) * 100;
         return Math.round(average * 10.0) / 10.0;
     }
 }
