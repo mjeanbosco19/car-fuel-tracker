@@ -6,6 +6,7 @@ import com.codehills.cartracker.model.Car;
 import com.codehills.cartracker.model.FuelEntry;
 import com.codehills.cartracker.model.FuelStats;
 import com.codehills.cartracker.service.CarService;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -27,7 +28,7 @@ public class CarController {
     }
 
     @PostMapping
-    public ResponseEntity<Car> createCar(@RequestBody CreateCarRequest request) {
+    public ResponseEntity<Car> createCar(@Valid @RequestBody CreateCarRequest request) {
         Car createdCar = carService.createCar(request);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdCar);
     }
@@ -48,8 +49,8 @@ public class CarController {
     @PostMapping("/{id}/fuel")
     public ResponseEntity<FuelEntry> addFuel(
             @PathVariable Long id,
-            @RequestBody AddFuelRequest request) {
-        
+            @Valid @RequestBody AddFuelRequest request) {
+
         return carService.addFuelEntry(id, request)
                 .map(entry -> ResponseEntity.status(HttpStatus.CREATED).body(entry))
                 .orElse(ResponseEntity.notFound().build());

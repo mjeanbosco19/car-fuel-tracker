@@ -1,11 +1,21 @@
 package com.codehills.cartracker.dto;
 
+import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Positive;
+import jakarta.validation.constraints.PositiveOrZero;
+
 public class AddFuelRequest {
-    
+
+    @NotNull(message = "Liters is required")
+    @Positive(message = "Liters must be positive")
     private Double liters;
-    
+
+    @NotNull(message = "Price is required")
+    @PositiveOrZero(message = "Price must be zero or positive")
     private Double price;
-    
+
+    @NotNull(message = "Odometer is required")
+    @Positive(message = "Odometer must be positive")
     private Integer odometer;
     
     public AddFuelRequest() {
