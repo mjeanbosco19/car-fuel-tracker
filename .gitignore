@@ -1,0 +1,43 @@
+# =====================
+# Compiled Output
+# =====================
+target/
+*.class
+*.jar
+*.war
+
+# =====================
+# IDE Files
+# =====================
+# IntelliJ IDEA
+.idea/
+*.iml
+*.iws
+*.ipr
+out/
+
+# Eclipse
+.classpath
+.project
+.settings/
+
+# VS Code
+.vscode/
+
+# =====================
+# OS Files
+# =====================
+.DS_Store
+Thumbs.db
+
+# =====================
+# Logs
+# =====================
+*.log
+logs/
+
+# =====================
+# Maven (but NOT wrapper)
+# =====================
+!.mvn/wrapper/maven-wrapper.jar
+dependency-reduced-pom.xml
