@@ -56,7 +56,7 @@ public class CarController {
     }
 
     @GetMapping("/{id}/fuel/stats")
-    public ResponseEntity<FuelStats> getFuelStats(@PathVariable Long id) {
+    public ResponseEntity<FuelStats> getFuelStats(@PathVariable("id") Long id) {
         return carService.getFuelStats(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
