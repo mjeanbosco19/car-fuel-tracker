@@ -1,0 +1,13 @@
+#!/bin/bash
+# Car Fuel Tracker CLI
+# Usage: ./car-tracker <command> [options]
+
+SCRIPT_DIR="$(cd "$(dirname "$0")" && pwd)"
+JAR_FILE="$SCRIPT_DIR/cli/target/cli-1.0.0-jar-with-dependencies.jar"
+
+if [ ! -f "$JAR_FILE" ]; then
+    echo "Error: CLI not built. Run './mvnw package -pl cli' first."
+    exit 1
+fi
+
+java -jar "$JAR_FILE" "$@"
