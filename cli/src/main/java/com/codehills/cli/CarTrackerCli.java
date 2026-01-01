@@ -96,7 +96,8 @@ public class CarTrackerCli {
         }
         
         Car car = client.createCar(brand, model, year);
-        System.out.println("Car created: " + car);
+        System.out.println("Car created successfully!");
+        System.out.println(car);
     }
     
     private static void handleAddFuel(ApiClient client, Map<String, String> params) 
@@ -131,7 +132,8 @@ public class CarTrackerCli {
         }
         
         FuelEntry entry = client.addFuel(carId, liters, price, odometer);
-        System.out.println("Fuel entry added: " + entry);
+        System.out.println("Fuel entry added successfully!");
+        System.out.println(entry);
     }
 
     private static void handleFuelStats(ApiClient client, Map<String, String> params) 

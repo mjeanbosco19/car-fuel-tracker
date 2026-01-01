@@ -27,6 +27,12 @@ public class Car {
     
     @Override
     public String toString() {
-        return String.format("Car #%d: %s %s (%d)", id, brand, model, year);
+        return String.format(
+            "ID: %d%n" +
+            "Brand: %s%n" +
+            "Model: %s%n" +
+            "Year: %d",
+            id, brand, model, year
+        );
     }
 }
