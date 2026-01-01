@@ -1,7 +1,5 @@
 package com.codehills.cli.model;
 
-// This is a FUEL STATS MODEL FOR CLI which is completely separate from the backend's FuelStats model.
-
 public class FuelStats {
     
     private Double totalFuel;
@@ -25,10 +23,9 @@ public class FuelStats {
     @Override
     public String toString() {
         return String.format(
-            "=== Fuel Statistics ===\n" +
-            "Total Fuel:    %.1f L\n" +
-            "Total Cost:    %.2f\n" +
-            "Average:       %.1f L/100km",
+            "Total fuel: %.0f L%n" +
+            "Total cost: %.2f%n" +
+            "Average consumption: %.1f L/100km",
             totalFuel, totalCost, averageConsumption
         );
     }
